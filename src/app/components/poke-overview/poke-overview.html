@@ -1,0 +1,10 @@
+@if (pokemon | async; as pokemon) {
+  <div class="pokemon-header">
+    {{pokemon.name}}
+    {{pokemon.id}}
+  </div>
+} @else {
+  <div>Loading...</div>
+}
+
+<button (click)="this.service.getPokemon(2)">Bisaknosp (#2)</button>

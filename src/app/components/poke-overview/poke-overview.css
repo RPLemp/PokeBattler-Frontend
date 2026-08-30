@@ -1,0 +1,26 @@
+.pokemon-header {
+  font-size: 2rem;
+}
+
+.pokemon-image {
+  width: 100%;
+  height: auto;
+}
+
+.pokemon-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.pokemon-button {
+  margin-top: 1rem;
+}
+
+.pokemon-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
