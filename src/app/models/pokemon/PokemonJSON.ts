@@ -1,4 +1,5 @@
 import NamedAPIResource from '../common/NamedAPIResource';
+import LocationAreaEncounter from '../locations/LocationAreaEncounter';
 
 export interface PokemonAbility {
   is_hidden: boolean;
@@ -78,7 +79,7 @@ interface PokemonJSON {
   forms?: NamedAPIResource[];
   game_indices?: VersionGameIndex[];
   held_items?: PokemonHeldItem[];
-  location_area_encounters?: string;
+  location_area_encounters?: LocationAreaEncounter[];
   moves?: PokemonMove[];
   past_types?: PokemonTypePast[];
   sprites?: PokemonSprites;

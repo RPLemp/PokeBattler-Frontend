@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import {Component, inject, OnInit} from '@angular/core';
+import {map, Observable, of, switchMap, tap} from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 
-import { PokeFetchService } from '../../services/PokeFetchService';
 import Pokemon from '../../models/pokemon/Pokemon';
+import {PokeMockService} from '../../services/PokeMockService';
+import {PokePictureService} from '../../services/PokePictureService';
 
 @Component({
   imports: [
@@ -14,17 +15,31 @@ import Pokemon from '../../models/pokemon/Pokemon';
   templateUrl: './poke-overview.html',
 })
 export class PokeOverview implements OnInit {
-  protected pokemon: Observable<Pokemon | null>;
+	protected pokeService = inject(PokeMockService);
+	private readonly pictureService = inject(PokePictureService);
 
-  constructor(protected service: PokeFetchService) {
-    this.pokemon = this.service.pokemon$;
-  }
+  protected pokemon: Observable<Pokemon | null> = this.pokeService.pokemon$.pipe(
+		switchMap((pokemon) => {
+			if (!pokemon)
+				return of(null);
+
+			return this.pictureService.getPictureFrontDefault(pokemon.id).pipe(
+				map((blob: Blob) => {
+						return {
+							...pokemon,
+							frontDefault: blob,
+							frontDefaultUrl: URL.createObjectURL(blob)
+					};
+				})
+			)
+		})
+	);
 
   ngOnInit(): void {
-    this.getPokemon(1);
+    this.getPokemon();
   }
 
-  getPokemon(id: number): void {
-    this.service.getPokemon(id);
+  getPokemon(): void {
+    this.pokeService.getPokemon();
   }
 }

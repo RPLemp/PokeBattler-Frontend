@@ -13,12 +13,11 @@ export class PokeFetchService {
   public pokemon$: Observable<Pokemon | null> = this.pokemonSubject.asObservable();
 
   getPokemon(index: number): void {
-    this.client.get<any>(`https://pokeapi.co/api/v2/pokemon/${index}`)
-      .subscribe(json => {
-        this.pokemonSubject.next({
-          name: json.name,
-          id: json.id,
-        });
+    this.client.get<any>(`https://pokeapi.co/api/v2/pokemon/${index}`).subscribe(json => {
+      this.pokemonSubject.next({
+        name: json.name,
+        id: json.id,
       });
+    });
   }
 }

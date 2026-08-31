@@ -1,5 +1,3 @@
-import AbilityJSON from './AbilityJSON';
-
-interface Ability extends AbilityJSON {}
+interface Ability {}
 
 export default Ability;

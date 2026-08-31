@@ -1,10 +1,21 @@
 @if (pokemon | async; as pokemon) {
-  <div class="pokemon-header">
-    {{pokemon.name}}
-    {{pokemon.id}}
-  </div>
-} @else {
-  <div>Loading...</div>
-}
+	<div class="pokemon-card">
+		<div class="outline">
+			@if (pokemon.frontDefaultUrl) {
+				<!-- TODO: centralize picture dimensions handles -->
+				<div class="pokemon-image-container">
+					<img [src]="pokemon.frontDefaultUrl" [alt]="pokemon.name" width="96" height="96" class="pokemon-image" />
+				</div>
+			}
 
-<button (click)="this.service.getPokemon(2)">Bisaknosp (#2)</button>
+			@if (pokemon) {
+				<div class="pokemon-header">
+					<span>{{ pokemon.name }}</span>
+					<span>#{{ pokemon.id }}</span>
+				</div>
+			}
+		</div>
+	</div>
+} @else {
+	<div>Loading...</div>
+}
